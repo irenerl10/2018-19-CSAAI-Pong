@@ -124,6 +124,7 @@ function main(){
   pala1.draw();
   pala2.init(ctx);
   pala2.draw();
+
   var step = new Number(document.getElementById("step").value);
   window.onkeydown = (e) => {
   //-- Eliminar el comportamiento por defecto de la tecla
@@ -131,7 +132,7 @@ function main(){
     //-- Detectar si es la tecla Espacio
     switch (e.keyCode) {
       case 38: // Up
-        pala2.y=pala2.y-step;
+        pala2.y=-step;
         console.log(pala2.y);
         break;
       case 40: // Down
@@ -152,36 +153,28 @@ function main(){
     pala2.draw();
   }
 
-
-
-
   // --Dibujar bola e inicializar
   bola.init(ctx);
   bola.draw();
-  //-- Crear timer para la animación
-  //-- Inicialmente a null
+
+  //-- Crear timer para la animación inicialmente a null
   var timer = null;
 
-  //-- Boton de salcar
+  //-- Boton de sacar
   var sacar = document.getElementById('sacar')
   sacar.onclick = () => {
 
     if (!timer) {
-
-      //-- Lanzar el timer. Su funcion de retrollamada la definimos
-      //-- en su primer parámetro
+      //-- Esto se ejecuta cada 20ms
       timer = setInterval(()=>{
+      //-- Actualizar la bola
+      bola.update();
 
-        //-- Esto se ejecuta cada 20ms
+      //-- Borrar el canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        //-- Actualizar la bola
-        bola.update();
-
-        //-- Borrar el canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        //-- Dibuar la bola
-        bola.draw();
+      //-- Dibuar la bola
+      bola.draw();
 
         //-- Si la bola llega a la parte derecha del canvas:
         //-- Terminar
@@ -225,7 +218,7 @@ function main(){
         bola.update();
 
         //-- Borrar el canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         //-- Dibuar la bola
         bola.draw();
@@ -247,6 +240,4 @@ function main(){
       },20); //-- timer
     }
   } //-- Fin onclick
-
-
 }
