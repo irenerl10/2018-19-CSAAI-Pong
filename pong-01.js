@@ -132,18 +132,18 @@ function main(){
     //-- Detectar si es la tecla Espacio
     switch (e.keyCode) {
       case 38: // Up
-        pala2.y=-step;
+        pala2.y=-pala2.y-step;
         console.log(pala2.y);
         break;
       case 40: // Down
         pala2.y=pala2.y+step;
         console.log(pala2.y);
         break;
-      case 65: // Up
+      case 65: // Up a
         pala2.y=pala2.y-step;
         console.log(pala2.y);
         break;
-      case 88: // Down
+      case 88: // Down x
         pala2.y=pala2.y+step;
         console.log(pala2.y);
         break;
@@ -152,48 +152,6 @@ function main(){
     pala1.draw();
     pala2.draw();
   }
-
-  // --Dibujar bola e inicializar
-  bola.init(ctx);
-  bola.draw();
-
-  //-- Crear timer para la animación inicialmente a null
-  var timer = null;
-
-  //-- Boton de sacar
-  var sacar = document.getElementById('sacar')
-  sacar.onclick = () => {
-
-    if (!timer) {
-      //-- Esto se ejecuta cada 20ms
-      timer = setInterval(()=>{
-      //-- Actualizar la bola
-      bola.update();
-
-      //-- Borrar el canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      //-- Dibuar la bola
-      bola.draw();
-
-        //-- Si la bola llega a la parte derecha del canvas:
-        //-- Terminar
-        if (bola.x > canvas.width) {
-
-          //-- Eliminar el timer
-          clearInterval(timer)
-          timer = null;
-
-          //-- Bola a su posicion inicial
-          bola.reset();
-
-          //-- Dibujar la bola en pos. inicial
-          bola.draw();
-        }
-      },20); //-- timer
-    }
-  } //-- Fin onclick
-
 
   //-- Inicializar y pintar la bola
   bola.init(ctx);
