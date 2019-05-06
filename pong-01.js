@@ -143,7 +143,7 @@ function mover_palas(pala1, pala2){
 function collision(pala1, pala2, bola, s){
     if (bola.x <= (pala1.x + pala1.width) && bola.x >= pala1.x){
         if (bola.y >= pala1.y && bola.y <= (pala1.y + pala1.height)){
-            //snd.play();
+            s.play();
             //el menos significa que la bola a impactado en la pala y cambia
             //el sentido de la bola
             bola.vx = -bola.vx;
@@ -239,7 +239,10 @@ function main(){
   //implemento el Audio
   var sonido1 = new Audio('Raqueta.mp3');
   var sonido2 = new Audio('Rebote.mp3');
-  var sonido3 = new Audio('Gol.mp3')
+  var sonido3 = new Audio('Gol.mp3');
+  var sonido4 = new Audio('winer1.mp3');
+  var sonido5 = new Audio('winer2.mp3');
+
 
   var bola = new ball(canvas.height, sonido1);
   //var bola_fake = new ball_fake(canvas.width,canvas.height);
@@ -296,14 +299,14 @@ function main(){
       s.play();
       bola.speed = 0;
       bola.x_ini = 51;
-      campo_pong.points1 += 1;
+      campo_pong.points2 += 1;
       bola.reset();
     }else if (bola.x > pala2_x) {
       s.play();
       bola.speed = 0;
       bola.speed = 0;
       bola.x_ini = 549;
-      campo_pong.points2 += 1;
+      campo_pong.points1 += 1;
       bola.reset();
     }
     bola.draw();
@@ -380,11 +383,9 @@ function main(){
                       //este condicional es para que me sume al marcador cada
                       //vez que la bola sobre pasa las palas
                     if (bola.x > canvas.width - bola.width){
-                      //snd3.play();
                       play_reset(sonido3);
 
                     }else if (bola.x < bola.width) {
-                      //snd3.play();
                       play_reset(sonido3);
 
                     }
@@ -397,8 +398,10 @@ function main(){
 
                       if (campo_pong.points1 == 7) {
                         console.log('ganador1');
+                        sonido4.play();
                         alert("THE PLAYER_1 IS WINNER");
-                        bola.reset();
+                        bola.speed;
+                        console.log(bola.x_ini);
                         //bola_fake.reset();
                         pala1.reset();
                         pala2.reset();
@@ -410,7 +413,9 @@ function main(){
                         campo_pong.draw();
                       }else if (campo_pong.points2 == 7) {
                         console.log('ganador2');
+                        sonido5.play();
                         alert("THE PLAYER_2 IS WINNER");
+                        bola.x_ini = 50;
                         bola.reset();
                         //bola_fake.reset();
                         pala1.reset();
