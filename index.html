@@ -4,13 +4,30 @@
     <meta charset="utf-8">
     <title>PONG 01</title>
     <link rel="stylesheet" href="pong-01.css">
-    <script src="pong-01.js"> </script>
+    <script src="pruebas.js"> </script>
   </head>
   <body onload="main();">
-   <p>Mi juego del pong...</p>
-   <canvas id="display"></canvas>
-   <br>
-   <button id="sacar"type="button" name="button">Sacar</button>
-    Step: <input type="text" value="0.01" id="step">
+    <div id="contenedor">
+      <canvas id="display"></canvas>
+      <br>
+    </div>
+    <div class="">
+      <button id="sacar" type="button" name="button">Sacar</button>
+      <button id="reiniciar" type="button" name="button">Reiniciar</button>
+      <!--
+      <button id="cambiar" type="button" name="button">Cambiar modo</button>
+      -->
+      <br>
+      <b>Level:</b>
+      <input type="radio" name="Level" value="easy" checked> Easy
+      <input type="radio" name="Level" value="medium"> Medium
+      <input type="radio" name="Level" value="hard"> Hard
+      <br>
+        <!--
+      <b>Mode:</b>
+      <input type="radio" name="Mode" value="one_player" checked> One Player
+      <input type="radio" name="Mode" value="two_player"> Two Player
+       -->
+    </div>
   </body>
 </html>

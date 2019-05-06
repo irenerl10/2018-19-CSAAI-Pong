@@ -1,4 +1,5 @@
 function main(){
+
   console.log("Pong: Main: Start!")
   var canvas = document.getElementById('display')
   canvas.width = 600;
@@ -132,7 +133,7 @@ function main(){
     //-- Detectar si es la tecla Espacio
     switch (e.keyCode) {
       case 38: // Up
-        pala2.y=-pala2.y-step;
+        pala2.y=pala2.y-sssstep;
         console.log(pala2.y);
         break;
       case 40: // Down
@@ -198,4 +199,9 @@ function main(){
       },20); //-- timer
     }
   } //-- Fin onclick
+  var reiniciar = document.getElementById('reiniciar')
+  reiniciar.onclick = () => {
+    console.log('holaaaaaaaaaaaaaaaaa');
+
+  }
 }
