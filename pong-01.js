@@ -73,7 +73,7 @@ function campo (w, h){
         this.points2 = 0;
     };
 }
-function ball(h, snd){
+function ball(h, s){
     this.ctx = null;
     this.fh = h;
     this.x_ini = 50;
@@ -100,7 +100,7 @@ function ball(h, snd){
         this.x += this.vx*this.speed;
         this.y += this.vy*this.speed;
         if (this.y > this.fh - this.height || this.y < this.height){
-            //snd.play();
+            s.play();
             this.vy = -this.vy;
         }
     };
@@ -140,7 +140,7 @@ function mover_palas(pala1, pala2){
    }
   }
 }
-function collision(pala1, pala2, bola){
+function collision(pala1, pala2, bola, s){
     if (bola.x <= (pala1.x + pala1.width) && bola.x >= pala1.x){
         if (bola.y >= pala1.y && bola.y <= (pala1.y + pala1.height)){
             //snd.play();
@@ -153,7 +153,7 @@ function collision(pala1, pala2, bola){
 
     if ((bola.x + bola.width) >= pala2.x && (bola.x + bola.width) <= (pala2.x + pala2.width)){
         if ((bola.y + bola.height) <= (pala2.y + pala2.height) && (bola.y + bola.height) >= pala2.y){
-            //snd.play();
+            s.play();
             //el menos cambia el sentido de la bola
             bola.vx = -bola.vx;
             bola.vy =  Math.floor(Math.random() * (-4 - 4 + 1) + 4);
@@ -236,7 +236,12 @@ function main(){
   var pala2_x = 550;
   var pala2_y = 300;
 
-  var bola = new ball(canvas.height, snd1);
+  //implemento el Audio
+  var sonido1 = new Audio('Raqueta.mp3');
+  var sonido2 = new Audio('Rebote.mp3');
+  var sonido3 = new Audio('Gol.mp3')
+
+  var bola = new ball(canvas.height, sonido1);
   //var bola_fake = new ball_fake(canvas.width,canvas.height);
 
   //me creo la pala 1 y 2 con los datos anteriores y la funcion palas, las inicializo
@@ -279,7 +284,7 @@ function main(){
   var reiniciar = document.getElementById('reiniciar');
 
   //me creo una funcion de resetar el juego para que el codigo no sea redundante
-  function play_reset(){
+  function play_reset(s){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     pala1.reset();
     pala2.reset();
@@ -288,11 +293,13 @@ function main(){
     pala1.draw();
     pala2.draw();
     if (bola.x < pala1_x) {
+      s.play();
       bola.speed = 0;
       bola.x_ini = 51;
       campo_pong.points1 += 1;
       bola.reset();
     }else if (bola.x > pala2_x) {
+      s.play();
       bola.speed = 0;
       bola.speed = 0;
       bola.x_ini = 549;
@@ -368,17 +375,17 @@ function main(){
 
                       //muevo las palas llamando a la funcion mover_palas
                       mover_palas(pala1, pala2);
-                      collision(pala1, pala2, bola);
+                      collision(pala1, pala2, bola, sonido2);
 
                       //este condicional es para que me sume al marcador cada
                       //vez que la bola sobre pasa las palas
                     if (bola.x > canvas.width - bola.width){
                       //snd3.play();
-                      play_reset();
+                      play_reset(sonido3);
 
                     }else if (bola.x < bola.width) {
                       //snd3.play();
-                      play_reset();
+                      play_reset(sonido3);
 
                     }
                     if (campo_pong.points1 == 7 || campo_pong.points2 == 7) {
